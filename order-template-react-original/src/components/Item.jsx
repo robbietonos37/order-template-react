@@ -1,34 +1,39 @@
 import { useState } from "react"
 
 
-export default function Item() {
-    const [item, setItem] = useState('');
-    const [itemQuantity, setItemQuantity] = useState(0);
+export default function Item({ index, item, onChange }) {
+    const handleproductChange = (e) => {
+        const newItem = { ...item, product: e.target.value };
+        onChange(index, newItem);
+    }
+    // const [item, setItem] = useState('');
+    // const [itemQuantity, setItemQuantity] = useState(0);
 
 
-    const handleChange = (e) => {
-        const { item, quantity } = e.target;
-        setPersonalDetails((prev) => {
-            return { ...prev, [name]: value }
-        })
+    const handleQuantityChange = (e) => {
+        const newItem = { ...item, quantity: parseInt(e.target.value) }
+        onChange(index, newItem);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onsubmit()
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     onsubmit()
+    // }
 
     return (
         <form>
             <div>
                 <label>Item</label>
-                <select>
-                    <option>Orange</option>
-                    <option>Banana</option>
-                    <option>Apple</option>
+                <select value={item.product} onChange={handleproductChange}>
+                    <option value="Orange">Orange</option>
+                    <option value="Banana">Banana</option>
+                    <option value="Apple">Apple</option>
                 </select>
                 <label>Quantity</label>
-                <input type="number" />
+                <input type="number"
+                    value={item.quantity}
+                    onChange={handleQuantityChange}
+                />
             </div>
         </form>
     )

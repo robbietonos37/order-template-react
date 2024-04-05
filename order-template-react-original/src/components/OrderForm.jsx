@@ -1,34 +1,40 @@
-import { useState } from "react"
+import { useState } from "react";
+import Item from './Item';
 
 
 export default function OrderForm() {
-    const [[items], setItems] = useState([]);
+    const [items, setItems] = useState([]);
     const addItemButton = document.getElementsByClassName('addItem');
 
-    addItemButton.addEventListener
+    const handleAddItem = () => {
+        setItems([...items, { product: "", quantity: 0 }]);
+    };
 
-
-    const handleChange = (e) => {
-        const { item, quantity } = e.target;
-        setPersonalDetails((prev) => {
-            return { ...prev, [name]: value }
-        })
-    }
+    const handleItemChange = (index, newItem) => {
+        const newItems = [...items];
+        newItems[index] = newItem;
+        setItems(newItems);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onsubmit()
-    }
-
-    const addItemForm = () => {
-        return <Item />;
+        //onsubmit();
     }
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div>
-                <button className="addItem" onClick={addItemForm}>Add Item</button>
+                {items && items.map((item, index) => (
+                    <Item
+                        key={index}
+                        index={index}
+                        item={item}
+                        onChange={handleItemChange}
+                    />
+                ))}
+                <button className="addItem" onClick={handleAddItem}>Add Item</button>
             </div>
+            <button type="submit">Submit</button>
         </form>
     )
 }
