@@ -17,7 +17,7 @@ export default function OrderForm() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        
+        // DB/API call here to deal with the data
     }
 
     const deleteItem = (index) => {
@@ -28,9 +28,9 @@ export default function OrderForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+            <div id="form-container">
                 {items && items.map((item, index) => (
-                    <div>
+                    <div className="outside-item-container">
                         <Item
                             key={index}
                             index={index}
